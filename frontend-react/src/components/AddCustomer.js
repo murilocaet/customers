@@ -74,11 +74,6 @@ const AddCustomer = () => {
       .then(response => {
         const { customers, error } = response;
 
-        if(customers.length > 0){
-          setCustomer(customers[0]);
-          setSubmitted(true);
-        }
-
         if(error.length > 0){
           let msg = [];
           for(let i = 0; i < error.length; i++){
@@ -90,6 +85,10 @@ const AddCustomer = () => {
           }
           setMsgErro(msg);
         }else{
+          if(customers.length > 0){
+            setCustomer(customers[0]);
+            setSubmitted(true);
+          }
           setMsgErro([]);
         }
       })

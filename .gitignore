@@ -3,6 +3,7 @@
 # dependencies
 /frontend-react/node_modules
 /frontend-react/.pnp
+/frontend-react/*.gz
 .pnp.js
 
 # testing
@@ -13,6 +14,7 @@
 
 # backend
 /backend-java/target
+/files/mongo/db/
 
 # terraform
 /terraform/.*

@@ -193,24 +193,35 @@ public class CustomerService {
     	Customer customer = null;
     	List<String> errors = validate(request);
     	if(errors.isEmpty()) {
+    		List<Customer> rs = null;
     		if(request.getCustomer().getDatabaseId() != null) {
-    			List<Customer> rs = repository.findByIdCustomer(request.getCustomer().getIdCustomer());
+    			rs = repository.findByIdCustomer(request.getCustomer().getIdCustomer());
     	        if(rs != null && !rs.isEmpty()) {
     	        	request.getCustomer().setDatabaseId(rs.get(0).getDatabaseId());
-            		customer = saveEntity(request);
-         	   		response.getCustomers().add(customer);
-            	   	controlRedisService.enableUpdate();
+    	        	rs = repository.findByEmail(request.getCustomer().getEmail());
+    	        	if(rs == null || rs.isEmpty() || rs.get(0).getIdCustomer().equals(request.getCustomer().getIdCustomer())) {
+                		customer = saveEntity(request);
+             	   		response.getCustomers().add(customer);
+                	   	controlRedisService.enableUpdate();
+    	        	}else {
+    	        		response.getError().add(Useful.ER_0012);
+    	        	}
     	        }else {
     	        	response.getError().add(Useful.ER_0004);
     	        }
         	}else {
-        		request.getCustomer().setDatabaseId(new ObjectId());
-        		request.getCustomer().setIdCustomer(request.getCustomer().getDatabaseId().toString());
-        		request.getCustomer().setCreateAt(Useful.sdf.format(new Date()));
-        		request.getCustomer().setUpdateAt(request.getCustomer().getCreateAt());
-        		customer = saveEntity(request);
-     	   		response.getCustomers().add(customer);
-        	   	controlRedisService.enableUpdate();
+        		rs = repository.findByEmail(request.getCustomer().getEmail());
+	        	if(rs == null || rs.isEmpty()) {
+	        		request.getCustomer().setDatabaseId(new ObjectId());
+	        		request.getCustomer().setIdCustomer(request.getCustomer().getDatabaseId().toString());
+	        		request.getCustomer().setCreateAt(Useful.sdf.format(new Date()));
+	        		request.getCustomer().setUpdateAt(request.getCustomer().getCreateAt());
+	        		customer = saveEntity(request);
+	     	   		response.getCustomers().add(customer);
+	        	   	controlRedisService.enableUpdate();
+    	        }else {
+    	        	response.getError().add(Useful.ER_0012);
+    	        }
         	}
     	}else {
     		response.setError(errors);

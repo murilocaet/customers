@@ -22,5 +22,6 @@ public class Useful {
 	public static final String ER_0009 = "FirstName - Required Field!";
 	public static final String ER_0010 = "LastName - Required Field!";
 	public static final String ER_0011 = "E-mail- Required Field!";
+	public static final String ER_0012 = "E-mail- Already in use!";
 		
 }
