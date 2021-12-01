@@ -30,7 +30,7 @@ In the project you will see 4 directories: **backend-java**, **frontend-react**,
 
 Just execute the Docker-compose in the file path `docker-compose.yml path> docker-compose up -d` and open [localhost browser](http://localhost/).
 
-[Project runing on AWS](http://ec2-54-205-233-46.compute-1.amazonaws.com/customers).
+[Project runing on AWS](http://ec2-54-205-233-46.compute-1.amazonaws.com).
 
 *You can find links about Docker and Terraform below
 

@@ -31,7 +31,7 @@ No projeto, você verá 4 diretórios: ** backend-java **, ** frontend-react **,
 
 Basta executar o Docker-compose no caminho do arquivo `docker-compose.yml path> docker-compose up -d` e abrir o [navegador em localhost](http://localhost/).
 
-[Projeto em execução na AWS](http://ec2-54-205-233-46.compute-1.amazonaws.com/customers).
+[Projeto em execução na AWS](http://ec2-54-205-233-46.compute-1.amazonaws.com).
 
 * Você encontrará links sobre Docker e Terraform abaixo
 
