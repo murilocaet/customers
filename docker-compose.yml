@@ -1,0 +1,57 @@
+version: "3.8"
+services: 
+  mongodb:
+    image: mongo:5.0
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: murilo
+      MONGO_INITDB_ROOT_PASSWORD: 12345
+      MONGO_INITDB_DATABASE: customers
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - ./files/mongo/database-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./files/mongo/db:/data/db
+    networks:
+      - backserver
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    environment:
+       REDIS_PASSWORD: Redis12345!
+    ports:
+      - 6379:6379
+    networks:
+      - backserver
+  
+  backend:
+    image: mccosta/customers-java
+    container_name: backend
+    ports:
+      - 8081:8081
+    networks:
+      - backserver
+      - frontend
+    depends_on:
+      - 'mongodb'
+      - 'redis'
+        
+  customers:
+    image: mccosta/customers
+    container_name: customers
+    ports:
+      - 80:80
+    volumes:
+      - ./files/front/default.conf:/etc/nginx/conf.d/default.conf
+    networks: 
+      - frontend
+    depends_on:
+      - 'backend'
+
+networks:
+  frontend:
+    driver: bridge
+  backserver:
+    driver: bridge

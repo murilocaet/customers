@@ -1,0 +1,63 @@
+
+
+.list .action {
+  cursor: pointer;
+}
+
+.submit-form {
+  width: 90%;
+  margin: auto;
+}
+
+.edit-form {
+  width: 90%;
+  margin: auto;
+}
+
+.form__half-left{
+  width: 49%;
+  float: left;
+  margin: 0;
+}
+
+.form__half-right {
+  width: 49%;
+  margin: 0;
+  float: right;
+}
+
+.container {
+  width: 100%;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.btn-space{
+  margin-right: 5px;
+}
+
+.msg{
+  margin-top: 15px;
+  color: red;
+}
+
+.item{
+  margin-top: 3px;
+}
+
+.Submit{
+  clear: both;
+}
+
+.error{
+  border: 1px solid red;
+}
+
+.span{
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+  color: red;
+}
