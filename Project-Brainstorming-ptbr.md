@@ -4,23 +4,23 @@
 
 ## Ideias de Arquitetura
 
-** 1. ** Redis
+** 1. Redis**
 
-** 2. ** Bancos de dados: MongoDB ou MySQL ???
+** 2. Bancos de dados: MongoDB ou MySQL**
 
-** 3. ** Docker
+** 3. Docker**
 
-** 4. ** Spring Boot
+** 4. Spring Boot**
 
-** 5. ** ReactJS ou AngularJS
+** 5. ReactJS ou AngularJS**
 
-** 6. ** Nginx
+** 6. Nginx**
 
-** 7. ** AWS
+** 7. AWS**
 
-** 8. ** Balanceamento de carga
+** 8. Balanceamento de carga**
 
-** 9. ** Terraform
+** 9. Terraform**
 
 
 ### Redis - Usado

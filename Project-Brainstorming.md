@@ -4,23 +4,23 @@
 
 ## Architecture Ideas
 
-**1.** Redis
+**1. Redis**
 
-**2.** Databases: MongoDB or MySQL ???
+**2. Databases: MongoDB or MySQL**
 
-**3.** Docker
+**3. Docker**
 
-**4.** Spring Boot
+**4. Spring Boot**
 
-**5.** ReactJS or AngularJS
+**5. ReactJS or AngularJS**
 
-**6.** Nginx
+**6. Nginx**
 
-**7.** AWS
+**7. AWS**
 
-**8.** Load Balance
+**8. Load Balance**
 
-**9.** Terraform
+**9. Terraform**
 
 
 ### Redis - Used
