@@ -1,5 +1,7 @@
 [Read in English](https://github.com/murilocaet/customers/blob/master/README.md)
 
+[Ideias e tomadas de decisão do projeto](https://github.com/murilocaet/customers/blob/master/Project-Brainstorming-ptbr.md)
+
 
 # Visão geral sobre o projeto
 

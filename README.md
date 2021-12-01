@@ -1,5 +1,7 @@
 [Ler em Português-Brasil](https://github.com/murilocaet/customers/blob/master/README-ptbr.md)
 
+[Project Brainstorming](https://github.com/murilocaet/customers/blob/master/Project-Brainstorming.md)
+
 # Overview about the project
 
 This project is about the creation of a rest API for Customer Management. It was used as System Architecture:

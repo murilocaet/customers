@@ -1,5 +1,7 @@
 [Read in English](https://github.com/murilocaet/customers/blob/master/Project-Brainstorming.md)
 
+[README](https://github.com/murilocaet/customers/blob/master/README-ptbr.md)
+
 # Visão geral sobre as etapas do projeto
 
 ## Ideias de Arquitetura
@@ -21,6 +23,7 @@
 **8. Balanceamento de carga**
 
 **9. Terraform**
+
 
 
 ### Redis - Usado

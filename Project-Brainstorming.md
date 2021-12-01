@@ -1,5 +1,7 @@
 [Ler em Português-Brasil](https://github.com/murilocaet/customers/blob/master/Project-Brainstorming-ptbr.md)
 
+[README](https://github.com/murilocaet/customers/blob/master/README.md)
+
 # Overview about the project steps
 
 ## Architecture Ideas
