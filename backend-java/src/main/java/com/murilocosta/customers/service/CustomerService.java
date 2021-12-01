@@ -43,6 +43,13 @@ public class CustomerService {
 		return customers;
 	}
 	
+	/**
+	 * Variable settings to Redis pagination
+	 * 
+	 * @param request CustomerRequest
+	 * @param response CustomerResponse
+	 * 
+	 */
 	private void paginateRedis(CustomerRequest request, CustomerResponse response) {
 		response.setTotalItens(request.getTotalItens());
 		if(request.getTotalItens() == 0) {
@@ -57,6 +64,12 @@ public class CustomerService {
 		}
 	}
 	
+	/**
+	 * Predicate settings to Redis filtering
+	 * 
+	 * @param request CustomerRequest 
+	 * @return List of Predicate<Customer>
+	 */
 	private List<Predicate<Customer>> getPredicates(CustomerRequest request){
 		List<Predicate<Customer>> predicateList = null;
 		if(request.getSearchName() != null && !request.getSearchName().isEmpty()) {
@@ -73,7 +86,12 @@ public class CustomerService {
 		return predicateList;
 	}
 	
-	
+	/**
+	 * Settings the total itens to performe Redis Filter
+	 * 
+	 * @param request CustomerRequest
+	 * @param response CustomerResponse
+	 */
 	private void setTotalItensByFilterRedis(CustomerRequest request, CustomerResponse response) {
 		List<Predicate<Customer>> predicateList = getPredicates(request);
 		if(predicateList != null) {
@@ -91,7 +109,14 @@ public class CustomerService {
 			response.setTotalItens(customers.size());
 		}
 	}
-	    
+	
+	/**
+	 * Get all Customers
+	 * 
+	 * @param request CustomerRequest
+	 * @return CustomerResponse
+	 * @throws Exception
+	 */
     public CustomerResponse getAll(CustomerRequest request) throws Exception{
     	CustomerResponse response = CustomerResponse.builder().build();
     	List<Customer> customers = null;
@@ -125,7 +150,12 @@ public class CustomerService {
         
 		return response;
     }
-           
+    
+    /**
+     * Get all Customers and save it in Redis too
+     * 
+     * @return List of Customer
+     */
     public List<Customer> getAllList(){
 		List<Customer> customers = repository.findAll();
 		if(!customers.isEmpty()) {
@@ -134,6 +164,12 @@ public class CustomerService {
 		return customers; 
     }
 
+    /**
+     * Get Customer by ID
+     * 
+     * @param id String
+     * @return CustomerResponse
+     */
     public CustomerResponse getById(String id){
     	CustomerResponse response = CustomerResponse.builder().build();
     	try {
@@ -161,6 +197,12 @@ public class CustomerService {
         return response;
     }
     
+    /**
+     * Validade entry Data
+     * 
+     * @param request CustomerRequest
+     * @return List os String
+     */
     private List<String> validate(CustomerRequest request) {
     	List<String> errors = new ArrayList<>();
     	if(request.getCustomer() == null) {
@@ -188,6 +230,12 @@ public class CustomerService {
     	return errors;
     }
     
+    /**
+     * Save Customer and create a Redis flag
+     * 
+     * @param request CustomerRequest
+     * @return CustomerResponse
+     */
     public CustomerResponse save(CustomerRequest request){
     	CustomerResponse response = CustomerResponse.builder().build();
     	Customer customer = null;
@@ -230,6 +278,12 @@ public class CustomerService {
         return response;
     }
     
+    /**
+     * Save Customer on database
+     * 
+     * @param request CustomerRequest
+     * @return Customer
+     */
     public Customer saveEntity(CustomerRequest request){
         log.info("Salvando o Customer");
         repository.save(request.getCustomer());
@@ -237,6 +291,12 @@ public class CustomerService {
         return request.getCustomer();
     }
     
+    /**
+     * Remove Customer logically and create a Redis flag
+     * 
+     * @param id String
+     * @return CustomerResponse
+     */
     public CustomerResponse remove(String id){
     	CustomerResponse response = CustomerResponse.builder().build();
     	if(id != null) {
@@ -252,6 +312,12 @@ public class CustomerService {
         return response;
     }
     
+    /**
+     * Remove Customer logically on database
+     * 
+     * @param id String
+     * @return Customer
+     */
     public Customer removeEntity(String id){
         log.info("Removendo o Customer");
     	List<Customer> rs = repository.findByIdCustomer(id);
@@ -265,6 +331,12 @@ public class CustomerService {
         return null;
     }
     
+    /**
+     * Change Removed flag for all Customers 
+     * 
+     * @param status boolean
+     * @return CustomerResponse
+     */
     public CustomerResponse changeAll(boolean status){
     	CustomerResponse response = CustomerResponse.builder().build();
     	
