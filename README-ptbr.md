@@ -5,19 +5,19 @@
 
 Este projeto trata da criação de uma API rest para Gerenciamento de Clientes. Foi usado como Arquitetura para o Sistema:
 
-** - ReactJS como front-end**
+**- ReactJS como front-end**
 	 
-** - Spring Boot como back-end**
+**- Spring Boot como back-end**
 	 
-** - Redis para armazenar dados em cache**
+**- Redis para armazenar dados em cache**
 	 
-** - MongoDB como armazenamento de banco de dados**
+**- MongoDB como armazenamento de banco de dados**
 	 
-** - Imagens Docker**
+**- Imagens Docker**
 	 
-** - Docker-compose para iniciar o ambiente**
+**- Docker-compose para iniciar o ambiente**
 	 
-** - Terraform para criar, instanciar e instalar todos os pacotes necessários para executar este projeto em uma VM Ubuntu (versão 18.4) no AWS.**
+**- Terraform para criar, instanciar e instalar todos os pacotes necessários para executar este projeto em uma VM Ubuntu (versão 18.4) no AWS.**
 
 ![ReactJS Front-end](https://github.com/murilocaet/customers/blob/master/img-project.png?raw=true)
 
