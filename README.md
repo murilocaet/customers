@@ -16,7 +16,7 @@ This project is about the creation of a rest API for Customer Management. It was
 
 **-** Terraform to create, instantiate, and install all the necessary packages to run this project on a Ubuntu(version 18.4) VM on AWS.
 
-![React Front-end](https://github.com/murilocaet/custumers/blob/master/img-project.png?raw=true)
+![React Front-end](https://github.com/murilocaet/customers/blob/master/img-project.png?raw=true)
 
 ## Available Scripts
 
