@@ -2,19 +2,21 @@
 
 This project is about the creation of a rest API for Customer Management. It was used as System Architecture:
 
-** - **React as Front-end;
+** - ** React as Front-end;
 
-** - **Spring Boot as Back-end;
+** - ** Spring Boot as Back-end;
 
-** - **Redis to store data on cache;
+** - ** Redis to store data on cache;
 
-** - **MongoDB as database storage;
+** - ** MongoDB as database storage;
 
-** - **Docker Images;
+** - ** Docker Images;
 
-** - **Docker-compose to start the environment;
+** - ** Docker-compose to start the environment;
 
-** - **Terraform to create, instantiate, and install all the necessary packages to run this project on a Ubuntu(version 18.4) VM on AWS.
+** - ** Terraform to create, instantiate, and install all the necessary packages to run this project on a Ubuntu(version 18.4) VM on AWS.
+
+![React Front-end](https://github.com/murilocaet/cybercube-currency/blob/master/img-project.png?raw=true)
 
 ## Available Scripts
 
