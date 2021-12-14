@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import "./App.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 import AddCustomer from "./components/AddCustomer";
 import Customer from "./components/Customer";

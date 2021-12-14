@@ -1,10 +1,10 @@
 package com.murilocosta.customers.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,12 +26,16 @@ public class Customer implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-	private String age;
+	private String birthDate;
     private String state;
     private String city;
 	private String createAt;
 	private String updateAt;
+	private Boolean enable;
 	private Boolean removed;
 	private String removedAt;
+	
+	@Transient
+	private Integer age;
 	
 }

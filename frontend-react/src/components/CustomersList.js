@@ -19,6 +19,8 @@ const CustomersList = (props) => {
 
   customersRef.current = customersFiltered;
 
+
+
   const onChangeSearchName = (e) => {
     const searchName = e.target.value;
     setSearchName(searchName);
@@ -27,8 +29,8 @@ const CustomersList = (props) => {
 
   const getStatusName = value => {
     let status = [
-      {value:true, label: "inactive"},
-      {value:false, label: "active"}
+      {value:true, label: "Active"},
+      {value:false, label: "Inactive"}
     ];
     let total = status.length;
     for(let i = 0; i < total; i++){
@@ -46,10 +48,10 @@ const CustomersList = (props) => {
       copyData = customers.filter(obj => 
         (obj.firstName + " " + obj.lastName).toLowerCase().includes(textFilter) || 
         obj.email.toLowerCase().includes(textFilter) || 
-        obj.age.includes(textFilter) || 
+        obj.birthDate.includes(textFilter) || 
         obj.state.toLowerCase().includes(textFilter) || 
         obj.city.toLowerCase().includes(textFilter) || 
-        getStatusName(obj.removed).includes(textFilter)
+        getStatusName(obj.enable).includes(textFilter)
       );
     }else{
       copyData = customers;
@@ -66,19 +68,20 @@ const CustomersList = (props) => {
         firstName: null,
         lastName: null,
         email: null,
-        age: null,
+        birthDate: null,
         state: null,
         city: null,
         createAt: null,
         updateAt: null,
-        removed: null,
+        enable: true,
+        removed: false,
         removedAt: null
       },
       searchName: searchName,
-      count: count,
+      // count: count,
       page: page,
-      pageSize: pageSize,
-      totalItens: totalItens
+      pageSize: pageSize
+      // totalItens: totalItens
     }
   };
 
@@ -89,35 +92,38 @@ const CustomersList = (props) => {
 
     CustomerDataService.getAll(data)
       .then((response) => {
-        const { customers, count, totalItens, error } = response;
-        
-        setCustomers(customers);
-        setCustomersFiltered(customers);
-        setCount(count);
-        setTotalItens(totalItens);
+        let msg = [];
+        if(response){
+          const { customers, count, totalItens, error } = response;
+          
+          setCustomers(customers);
+          setCustomersFiltered(customers);
+          setCount(count);
+          setTotalItens(totalItens);
 
-        if(error.length > 0){
-          let msg = [];
-          for(let i = 0; i < error.length; i++){
-            msg.push(
-              <div key={"msg-"+i} className="col-md-12 item">
-                {(i+1) + ". " + error[i]}
-              </div>
-            );
+          if(error.length > 0){
+            for(let i = 0; i < error.length; i++){
+              msg.push(
+                <div key={"msg-"+i} className="col-md-12 item">
+                  {(i+1) + ". " + error[i]}
+                </div>
+              );
+            }
+            setMsgErro(msg);
+          }else{
+            setMsgErro([]);
           }
-          setMsgErro(msg);
         }else{
-          setMsgErro([]);
+          msg.push(
+            <div key={"msg-not-found"} className="col-md-12 item">
+              No data found!
+            </div>
+          );
+          setMsgErro(msg);
         }
       })
       .catch((e) => {
       });
-  };
-
-  useEffect(retrieveCustomers, [page, pageSize]);
-
-  const refreshList = () => {
-    retrieveCustomers();
   };
 
   const disableAllCustomers = () => {
@@ -126,7 +132,7 @@ const CustomersList = (props) => {
             
         setPage(1);
         let data = getData();
-        data.totalItens = 0;
+        // data.totalItens = 0;
         retrieveCustomers(data);
       })
       .catch((e) => {
@@ -139,7 +145,7 @@ const CustomersList = (props) => {
             
         setPage(1);
         let data = getData();
-        data.totalItens = 0;
+        // data.totalItens = 0;
         retrieveCustomers(data);
       })
       .catch((e) => {
@@ -149,7 +155,7 @@ const CustomersList = (props) => {
   const findByName = () => {
     setPage(1);
     let data = getData();
-    data.totalItens = 0;
+    // data.totalItens = 0;
     retrieveCustomers(data);
   };
 
@@ -164,13 +170,16 @@ const CustomersList = (props) => {
 
     CustomerDataService.remove(id)
       .then((response) => {
-        props.history.push("/customers");
+        // props.history.push("/customers");
 
         let newCustomers = [...customersRef.current];
         newCustomers[rowIndex].removed = true;
 
-        setCustomers(newCustomers);
+        newCustomers = newCustomers.filter(obj => obj.removed == false );
         setCustomersFiltered(newCustomers);
+        
+        let customers = customers.filter(obj => obj.removed == false );
+        setCustomers(customers);
       })
       .catch((e) => {
       });
@@ -213,9 +222,9 @@ const CustomersList = (props) => {
       },
       {
         Header: "Status",
-        accessor: "removed",
+        accessor: "enable",
         Cell: (props) => {
-          return props.value ? "Inactive" : "Active";
+          return props.value ? "Active" : "Inactive";
         },
       },
       {
@@ -254,6 +263,8 @@ const CustomersList = (props) => {
     columns,
     data: customersFiltered,
   });
+
+  useEffect(retrieveCustomers, [page, pageSize]);
 
 
   return (
@@ -336,14 +347,14 @@ const CustomersList = (props) => {
 
       <div className="col-md-8">
         <button className="btn btn-sm btn-success btn-space" onClick={activateAllCustomers}>
-          Activate All
+          Enable All
         </button>
         <button className="btn btn-sm btn-danger" onClick={disableAllCustomers}>
           Disable All
         </button>
       </div>
       <div className="col-md-12 msg">
-        {msgErro.length > 0 ? "Errors:" : ""}
+        {msgErro.length > 0 ? "Warnings:" : ""}
         {msgErro}
       </div>
     </div>

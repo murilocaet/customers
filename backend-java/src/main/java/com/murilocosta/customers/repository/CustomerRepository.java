@@ -15,7 +15,6 @@ import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Repository;
 
 import com.murilocosta.customers.entity.Customer;
-import com.murilocosta.customers.useful.Useful;
 
 @Repository
 public class CustomerRepository {
@@ -96,6 +95,6 @@ public class CustomerRepository {
     }
 
     public void delete(String key) {
-        hashOperations.delete(key);
+        hashOperations.getOperations().delete(key);
     }
 }

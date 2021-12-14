@@ -20,6 +20,12 @@ resource "aws_security_group" "murilocosta-group" {
     protocol    = "tcp"
     cidr_blocks = "${var.cdirs_acesso_public}"
   }
+  ingress {
+    from_port   = 8100
+    to_port     = 8100
+    protocol    = "tcp"
+    cidr_blocks = "${var.cdirs_acesso_public}"
+  }
   egress {
     from_port   = 0
     to_port     = 0

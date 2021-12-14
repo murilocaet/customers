@@ -21,7 +21,13 @@ Este projeto trata da criação de uma API rest para Gerenciamento de Clientes. 
 	 
 **- Terraform para criar, instanciar e instalar todos os pacotes necessários para executar este projeto em uma VM Ubuntu (versão 18.4) no AWS.**
 
+**-Swagger para documentar a API**
+
 ![ReactJS Front-end](https://github.com/murilocaet/customers/blob/master/img-project.png?raw=true)
+
+[Projeto em execução na AWS](http://ec2-54-152-102-37.compute-1.amazonaws.com).
+
+[Documentação da API](http://ec2-54-152-102-37.compute-1.amazonaws.com:8100/swagger).
 
 ## Scripts Disponíveis
 
@@ -31,10 +37,7 @@ No projeto, você verá 4 diretórios: ** backend-java **, ** frontend-react **,
 
 Basta executar o Docker-compose no caminho do arquivo `docker-compose.yml path> docker-compose up -d` e abrir o [navegador em localhost](http://localhost/).
 
-[Projeto em execução na AWS](http://ec2-54-205-233-46.compute-1.amazonaws.com).
-
 * Você encontrará links sobre Docker e Terraform abaixo
-
 
 ### frontend-react
 

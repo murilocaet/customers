@@ -20,7 +20,13 @@ This project is about the creation of a rest API for Customer Management. It was
 
 **- Terraform to create, instantiate, and install all the necessary packages to run this project on a Ubuntu(version 18.4) VM on AWS.**
 
+**- Swagger to document the API**
+
 ![React Front-end](https://github.com/murilocaet/customers/blob/master/img-project.png?raw=true)
+
+[Project runing on AWS](http://ec2-54-152-102-37.compute-1.amazonaws.com).
+
+[API documentation](http://ec2-54-152-102-37.compute-1.amazonaws.com:8100/swagger).
 
 ## Available Scripts
 
@@ -29,8 +35,6 @@ In the project you will see 4 directories: **backend-java**, **frontend-react**,
 ## How to run?
 
 Just execute the Docker-compose in the file path `docker-compose.yml path> docker-compose up -d` and open [localhost browser](http://localhost/).
-
-[Project runing on AWS](http://ec2-54-205-233-46.compute-1.amazonaws.com).
 
 *You can find links about Docker and Terraform below
 

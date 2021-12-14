@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CustomerDataService from "../services/CustumerService";
+import DatePicker from "react-datepicker";
 
 const Customer = props => {
   const initialCustomerState = {
@@ -8,12 +9,13 @@ const Customer = props => {
     firstName: "",
     lastName: "",
     email: "",
-    age: "",
+    birthDate: "",
     state: "",
     city: "",
     createAt: "",
     updateAt: "",
-    removed: "",
+    enable: true,
+    removed: false,
     removedAt: null
   };
   const [currentCustomer, setCurrentCustomer] = useState(initialCustomerState);
@@ -22,16 +24,50 @@ const Customer = props => {
   const [firstNameErro, setFirstNameErro] = useState(false);
   const [lastNameErro, setLastNameErro] = useState(false);
   const [emailErro, setEmailErro] = useState(false);
-  const [ageErro, setAgeErro] = useState(false);
+  const [birthDateErro, setBirthDateErro] = useState(false);
   const [stateErro, setStateErro] = useState(false);
   const [cityErro, setCityErro] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  
+  const range = (start, end) => {
+    let years = [];
+    for(let i = start; i < end; i++){
+      years.push(i);
+    }
+    return years;
+  }
+
+  const getYear = (date) => {
+    return date.getFullYear();
+  }
+
+  const getMonth = (date) => {
+    return date.getMonth();
+  }
+  const years = range(1900, getYear(new Date())+1);
+  
+  
 
   const getCustomer = id => {
     CustomerDataService.getById(id)
       .then(response => {
         if(response.customers.length > 0){
-          setCurrentCustomer(response.customers[0]);
+          let obj = response.customers[0];
+          obj.birthDate = new Date(obj.birthDate + " 01:00");
+          setCurrentCustomer(obj);
         }
       })
       .catch(e => {
@@ -49,10 +85,22 @@ const Customer = props => {
     if(name == "firstName"){setFirstNameErro(false);}
     if(name == "lastName"){setLastNameErro(false);}
     if(name == "email"){setEmailErro(false);}
-    if(name == "age"){setAgeErro(false);}
     if(name == "state"){setStateErro(false);}
     if(name == "city"){setCityErro(false);}
   };
+
+  const setBirthDate = date => {
+    if(date !== null && date !== undefined){
+      setBirthDateErro(false);
+    }
+    setCurrentCustomer({ ...currentCustomer, ["birthDate"]: date });
+  };
+
+  const getBirthDateString = () => {
+    return currentCustomer.birthDate.getFullYear() + "-"+
+            currentCustomer.birthDate.getMonth() + "-"+
+            currentCustomer.birthDate.getDate();
+  }
 
   const getData = status => {
     return {
@@ -62,12 +110,13 @@ const Customer = props => {
         firstName: currentCustomer.firstName,
         lastName: currentCustomer.lastName,
         email: currentCustomer.email,
-        age: currentCustomer.age,
+        birthDate: getBirthDateString(),
         state: currentCustomer.state,
         city: currentCustomer.city,
         createAt: currentCustomer.createAt,
         updateAt: currentCustomer.updateAt,
-        removed: status,
+        enable: status,
+        removed: false,
         removedAt: null
       }
     }
@@ -78,7 +127,7 @@ const Customer = props => {
     if(!currentCustomer.firstName){setFirstNameErro(true); valid = false;}
     if(!currentCustomer.lastName){setLastNameErro(true); valid = false;}
     if(!currentCustomer.email){setEmailErro(true); valid = false;}
-    if(!currentCustomer.age){setAgeErro(true); valid = false;}
+    if(!currentCustomer.birthDate){setBirthDateErro(true); valid = false;}
     if(!currentCustomer.state){setStateErro(true); valid = false;}
     if(!currentCustomer.city){setCityErro(true); valid = false;}
     if(valid){
@@ -89,12 +138,13 @@ const Customer = props => {
           firstName: currentCustomer.firstName,
           lastName: currentCustomer.lastName,
           email: currentCustomer.email,
-          age: currentCustomer.age,
+          birthDate: getBirthDateString(),
           state: currentCustomer.state,
           city: currentCustomer.city,
           createAt: currentCustomer.createAt,
           updateAt: currentCustomer.updateAt,
-          removed: status,
+          enable: status,
+          removed: false,
           removedAt: null
         }
       }
@@ -103,11 +153,13 @@ const Customer = props => {
   };
 
   const activateCustomer = () => {
-    CustomerDataService.save(getData(false))
+    CustomerDataService.activate(currentCustomer.idCustomer)
       .then(response => {
         
         if(response.customers.length > 0){
-          setCurrentCustomer(response.customers[0]);
+          let obj = response.customers[0];
+          obj.birthDate = new Date(obj.birthDate + " 01:00");
+          setCurrentCustomer(obj);
           setMessage("The status was updated successfully!");
         }
       })
@@ -116,22 +168,27 @@ const Customer = props => {
   };
 
   const updateCustomer = () => {
-    let request = getDataUpdate(currentCustomer.removed);
+    let request = getDataUpdate(currentCustomer.enable);
     if(request){
-      CustomerDataService.save(request)
+      CustomerDataService.edit(request)
       .then(response => {
-        const { error } = response;
+        if(response){
+          const { error } = response;
 
-        if(error.length > 0){
-          let msg = [];
-          for(let i = 0; i < error.length; i++){
-            msg.push(
-              <div key={"msg-"+i} className="col-md-12 item">
-                {(i+1) + ". " + error[i]}
-              </div>
-            );
+          if(error.length > 0){
+            let msg = [];
+            for(let i = 0; i < error.length; i++){
+              msg.push(
+                <div key={"msg-"+i} className="col-md-12 item">
+                  {(i+1) + ". " + error[i]}
+                </div>
+              );
+            }
+            setMsgErro(msg);
+          }else{
+            setMessage("The customer was updated successfully!");
+            setMsgErro([]);
           }
-          setMsgErro(msg);
         }else{
           setMessage("The customer was updated successfully!");
           setMsgErro([]);
@@ -143,11 +200,13 @@ const Customer = props => {
   };
 
   const disableCustomer = () => {
-    CustomerDataService.remove(currentCustomer.idCustomer)
+    CustomerDataService.disable(currentCustomer.idCustomer)
       .then(response => {
         
         if(response.customers.length > 0){
-          setCurrentCustomer(response.customers[0]);
+          let obj = response.customers[0];
+          obj.birthDate = new Date(obj.birthDate + " 01:00");
+          setCurrentCustomer(obj);
           setMessage("The status was updated successfully!");
         }
       })
@@ -213,15 +272,62 @@ const Customer = props => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="age">Age</label>
-                {ageErro ? <span className="span">Required Field!</span> : "" }
-                <input
-                  type="text"
-                  className={"form-control" + (ageErro ? " error" : "") }
-                  id="age"
-                  name="age"
-                  value={currentCustomer.age}
-                  onChange={handleInputChange}
+                <label htmlFor="birthDate">Birth Date</label>
+                {birthDateErro ? <span className="span">Required Field!</span> : "" }
+                <DatePicker 
+                  className={"form-control " + (birthDateErro ? " error" : "") }
+                  renderCustomHeader={({
+                    date,
+                    changeYear,
+                    changeMonth,
+                    decreaseMonth,
+                    increaseMonth,
+                    prevMonthButtonDisabled,
+                    nextMonthButtonDisabled,
+                  }) => (
+                    <div
+                      style={{
+                        margin: 10,
+                        width: 240,
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+                        {"<"}
+                      </button>
+                      <select
+                        value={getYear(date)}
+                        onChange={({ target: { value } }) => changeYear(value)}
+                      >
+                        {years.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+
+                      <select
+                        value={months[getMonth(date)]}
+                        onChange={({ target: { value } }) =>
+                          changeMonth(months.indexOf(value))
+                        }
+                      >
+                        {months.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+
+                      <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+                        {">"}
+                      </button>
+                    </div>
+                  )}
+                  dateFormat="yyyy/MM/dd"
+                  selected={currentCustomer.birthDate}
+                  onChange={(date) => setBirthDate(date)}
                 />
               </div>
               <div className="form-group">
@@ -241,23 +347,23 @@ const Customer = props => {
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentCustomer.removed ? " Inactive" : " Active"}
+              {currentCustomer.enable ? " Active" : " Inactive"}
             </div>
           </form>
 
-          {currentCustomer.removed ? (
-            <button
-              className="badge badge-primary mr-2"
-              onClick={() => activateCustomer()}
-            >
-              Activate
-            </button>
-          ) : (
+          {currentCustomer.enable ? (
             <button
               className="badge badge-danger mr-2"
               onClick={() => disableCustomer()}
             >
               Disable
+            </button>
+          ) : (
+            <button
+              className="badge badge-primary mr-2"
+              onClick={() => activateCustomer()}
+            >
+              Enable
             </button>
           )}
 

@@ -52,7 +52,8 @@ public class CustomerService {
 	 */
 	private void paginateRedis(CustomerRequest request, CustomerResponse response) {
 		response.setTotalItens(request.getTotalItens());
-		if(request.getTotalItens() == 0) {
+//		if(request.getPage() == 1 && request.getSearchName().isEmpty()) {
+		if(request.getSearchName().isEmpty()) {
 			List<Customer> customers = redisService.findAll();
 			response.setTotalItens(customers.size());
 		}
@@ -79,7 +80,7 @@ public class CustomerService {
 			
 			predicateList.add(c -> c.getFirstName().concat(" ").concat(c.getLastName()).toLowerCase().contains(searchName));
 			predicateList.add(c -> c.getEmail().toLowerCase().contains(searchName));
-			predicateList.add(c -> c.getAge().toLowerCase().contains(searchName));
+			predicateList.add(c -> c.getBirthDate().contains(searchName));
 			predicateList.add(c -> c.getState().toLowerCase().contains(searchName));
 			predicateList.add(c -> c.getCity().toLowerCase().contains(searchName));
 		}
@@ -145,6 +146,9 @@ public class CustomerService {
     	}
     	
     	if(customers != null && !customers.isEmpty()) {
+			for(Customer c : customers) {
+				c.setAge(Useful.getAge(c.getBirthDate()));
+			}
     		response.setCustomers(customers);
     	}    	
         
@@ -157,8 +161,9 @@ public class CustomerService {
      * @return List of Customer
      */
     public List<Customer> getAllList(){
-		List<Customer> customers = repository.findAll();
+		List<Customer> customers = repository.findAllByRemoved(false);
 		if(!customers.isEmpty()) {
+			redisService.delete();
 			redisService.saveAll(customers);
 		}
 		return customers; 
@@ -179,9 +184,8 @@ public class CustomerService {
 	    	}
 	    	Customer customer = redisService.findById(id);
 			if(customer == null || customer.getIdCustomer() == null) {
-    		
     			List<Customer> rs = repository.findByIdCustomer(id);
-    	        if(rs != null && !rs.isEmpty()) {
+    	        if(rs != null && !rs.isEmpty() && !rs.get(0).getRemoved()) {
     	        	response.getCustomers().add(rs.get(0));
     	        }
 	    	}else {
@@ -218,7 +222,7 @@ public class CustomerService {
 		if(request.getCustomer().getEmail() == null || request.getCustomer().getEmail().isEmpty()) {
 			errors.add(Useful.ER_0011);
     	}
-    	if(request.getCustomer().getAge() == null || request.getCustomer().getAge().isEmpty()) {
+    	if(request.getCustomer().getBirthDate() == null || request.getCustomer().getBirthDate().isEmpty()) {
     		errors.add(Useful.ER_0006);
     	}
 		if(request.getCustomer().getState() == null || request.getCustomer().getState().isEmpty()) {
@@ -242,6 +246,42 @@ public class CustomerService {
     	List<String> errors = validate(request);
     	if(errors.isEmpty()) {
     		List<Customer> rs = null;
+    		if(request.getCustomer().getDatabaseId() == null) {
+        		rs = repository.findByEmail(request.getCustomer().getEmail());
+	        	if(rs == null || rs.isEmpty()) {
+	        		request.getCustomer().setDatabaseId(new ObjectId());
+	        		request.getCustomer().setIdCustomer(request.getCustomer().getDatabaseId().toString());
+	        		request.getCustomer().setCreateAt(Useful.sdf.format(new Date()));
+	        		request.getCustomer().setUpdateAt(request.getCustomer().getCreateAt());
+	        		request.getCustomer().setEnable(true);
+	        		request.getCustomer().setRemoved(false);
+	        		request.getCustomer().setRemovedAt(null);
+	        		customer = saveEntity(request);
+	     	   		response.getCustomers().add(customer);
+	        	   	controlRedisService.enableUpdate();
+    	        }else {
+    	        	response.getError().add(Useful.ER_0012);
+    	        }
+        	}
+    	}else {
+    		response.setError(errors);
+    	}
+    	
+        return response;
+    }
+    
+    /**
+     * Update Customer and create a Redis flag
+     * 
+     * @param request CustomerRequest
+     * @return CustomerResponse
+     */
+    public CustomerResponse edit(CustomerRequest request){
+    	CustomerResponse response = CustomerResponse.builder().build();
+    	Customer customer = null;
+    	List<String> errors = validate(request);
+    	if(errors.isEmpty()) {
+    		List<Customer> rs = null;
     		if(request.getCustomer().getDatabaseId() != null) {
     			rs = repository.findByIdCustomer(request.getCustomer().getIdCustomer());
     	        if(rs != null && !rs.isEmpty()) {
@@ -258,23 +298,55 @@ public class CustomerService {
     	        	response.getError().add(Useful.ER_0004);
     	        }
         	}else {
-        		rs = repository.findByEmail(request.getCustomer().getEmail());
-	        	if(rs == null || rs.isEmpty()) {
-	        		request.getCustomer().setDatabaseId(new ObjectId());
-	        		request.getCustomer().setIdCustomer(request.getCustomer().getDatabaseId().toString());
-	        		request.getCustomer().setCreateAt(Useful.sdf.format(new Date()));
-	        		request.getCustomer().setUpdateAt(request.getCustomer().getCreateAt());
-	        		customer = saveEntity(request);
-	     	   		response.getCustomers().add(customer);
-	        	   	controlRedisService.enableUpdate();
-    	        }else {
-    	        	response.getError().add(Useful.ER_0012);
-    	        }
+  	        	response.getError().add(Useful.ER_0004);
         	}
     	}else {
     		response.setError(errors);
     	}
     	
+        return response;
+    }
+    
+    
+    /**
+     * Activate Customer and create a Redis flag
+     * 
+     * @param request CustomerRequest
+     * @return CustomerResponse
+     */
+    public CustomerResponse activate(String id){
+    	CustomerResponse response = CustomerResponse.builder().build();
+    	Customer customer = null;
+		List<Customer> rs = repository.findByIdCustomer(id);
+        if(rs != null && !rs.isEmpty()) {
+        	rs.get(0).setEnable(true);
+    		customer = repository.save(rs.get(0));
+ 	   		response.getCustomers().add(customer);
+    	   	controlRedisService.enableUpdate();
+        }else {
+        	response.getError().add(Useful.ER_0004);
+        }
+        return response;
+    }
+    
+    /**
+     * Disable Customer and create a Redis flag
+     * 
+     * @param request CustomerRequest
+     * @return CustomerResponse
+     */
+    public CustomerResponse disable(String id){
+    	CustomerResponse response = CustomerResponse.builder().build();
+    	Customer customer = null;
+		List<Customer> rs = repository.findByIdCustomer(id);
+        if(rs != null && !rs.isEmpty()) {
+        	rs.get(0).setEnable(false);
+    		customer = repository.save(rs.get(0));
+ 	   		response.getCustomers().add(customer);
+    	   	controlRedisService.enableUpdate();
+        }else {
+        	response.getError().add(Useful.ER_0004);
+        }
         return response;
     }
     
@@ -340,12 +412,9 @@ public class CustomerService {
     public CustomerResponse changeAll(boolean status){
     	CustomerResponse response = CustomerResponse.builder().build();
     	
-    	List<Customer> list = getAllList();
-    	String dt = status ? Useful.sdf.format(new Date()) : null;
-    	
+    	List<Customer> list = getAllList();    	
     	for (Customer c : list) {
-    		c.setRemoved(status);
-        	c.setRemovedAt(dt);
+    		c.setEnable(status);
 		}
         repository.saveAll(list);
    		controlRedisService.enableUpdate();

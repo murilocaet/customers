@@ -17,5 +17,7 @@ public interface CustomerMongoRepository extends MongoRepository<Customer, Long>
 	public List<Customer> findByAge(Integer age);
 	public List<Customer> findByCity(String city);
 	public List<Customer> findByState(String state);
+	public List<Customer> findAllByEnable(Boolean enable);
+	public List<Customer> findAllByRemoved(Boolean removed);
 
 }

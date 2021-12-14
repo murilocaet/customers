@@ -1,5 +1,25 @@
 version: "3.8"
 services: 
+
+  swaggerapi:
+    image: swaggerapi/swagger-editor
+    container_name: swaggerapi
+    restart: always
+    ports:
+      - 8200:8080
+
+  swaggerui:
+    image: swaggerapi/swagger-ui
+    container_name: swaggerui
+    restart: always
+    ports:
+      - 8100:8080
+    volumes:
+      - ./files/swagger/openapi.json:/spec/openapi.json
+    environment:
+      BASE_URL: /swagger
+      SWAGGER_JSON: /spec/openapi.json
+
   mongodb:
     image: mongo:5.0
     container_name: mongodb
@@ -39,7 +59,7 @@ services:
       - 'redis'
         
   customers:
-    image: mccosta/customers
+    image: mccosta/customers:1.0
     container_name: customers
     ports:
       - 80:80

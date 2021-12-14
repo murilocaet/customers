@@ -1,10 +1,12 @@
 package com.murilocosta.customers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -100,6 +102,7 @@ class CustumerServiceTests {
 	
 	//Given
 	private List<Customer> getList() {
+		Date d = new Date();
 		List<Customer> customerList = new ArrayList<>();
 		for(int i = 1; i < 10; i++) {
 			customerList.add(Customer.builder()
@@ -107,12 +110,13 @@ class CustumerServiceTests {
 			        .idCustomer("61a48c10c0219a3dc19215a"+i)
 			        .firstName("Name"+i)
 			        .lastName("LastName" + i)
-			        .email("teste"+i+"@gmail.com")
-			        .age(20+i+"")
+			        .email("teste"+i+d.getTime()+"@gmail.com")
+			        .birthDate("1985-09-19")
 			        .state("BA")
 			        .city("Salvador")
 			        .createAt("2021-11-29 06:15")
 			        .updateAt("2021-11-29 06:15")
+			        .enable(true)
 			        .removed(false)
 			        .removedAt(null)
 		            .build());
@@ -153,15 +157,17 @@ class CustumerServiceTests {
 	}
 	///Given
 	private void givenAValidNewCustomerRequest() throws Exception {
+		Date d = new Date();
 		customer = Customer.builder()
 		        .firstName("NameSaved")
 		        .lastName("LastName")
-		        .email("testeSave@gmail.com")
-		        .age("30")
+		        .email("testeSave"+d.getTime()+"@gmail.com")
+		        .birthDate("1985-09-19")
 		        .state("BA")
 		        .city("Salvador")
 		        .createAt("2021-11-29 06:15")
 		        .updateAt("2021-11-29 06:15")
+		        .enable(true)
 		        .removed(false)
 		        .removedAt(null)
 	            .build();
@@ -180,7 +186,7 @@ class CustumerServiceTests {
 	private void whenAllFieldsIsNull() {
 	    customer.setFirstName(null);
 	    customer.setLastName(null);
-	    customer.setAge(null);
+	    customer.setBirthDate(null);
 	    customer.setEmail(null);
 	    customer.setCity(null);
 	    customer.setState(null);

@@ -7,8 +7,11 @@
 	"item": [
 		{
 			"name": "findAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -20,16 +23,40 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/api/customers/all",
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers?page=1&count=1&pageSize=5&totalItens=0&searchName=",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
 					],
 					"port": "8081",
 					"path": [
 						"api",
-						"customers",
-						"all"
+						"customers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "count",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "totalItens",
+							"value": "0"
+						},
+						{
+							"key": "searchName",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -41,21 +68,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/api/customers?id=1",
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
 					],
 					"port": "8081",
 					"path": [
 						"api",
-						"customers"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1"
-						}
+						"customers",
+						"1"
 					]
 				}
 			},
@@ -68,7 +93,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"customer\": {\r\n\r\n        \"idCustomer\": \"61a40fa2f35418196d07e668\",\r\n        \"firstName\": \"Teste 008\",\r\n        \"lastName\": \"Teste\",\r\n        \"email\": \"teste8@gmail.com\",\r\n        \"age\": \"22\",\r\n        \"state\": \"BA\",\r\n        \"city\": \"Salvador\",\r\n        \"createAt\": \"2021-11-28 18:00\",\r\n        \"updateAt\": null,\r\n        \"removed\": false,\r\n        \"removedAt\": null\r\n    }\r\n}",
+					"raw": "{\r\n    \"customer\": {\r\n\t\t\"databaseId\": null,\r\n\t\t\"idCustomer\": null,\r\n\t\t\"firstName\": \"tt3\",\r\n\t\t\"lastName\": \"tt3\",\r\n\t\t\"email\": \"tt3@teste.com\",\r\n\t\t\"birthDate\": \"2017-08-17\",\r\n\t\t\"state\": \"BA\",\r\n\t\t\"city\": \"Salvador\",\r\n\t\t\"createAt\": null,\r\n\t\t\"updateAt\": null,\r\n\t\t\"enable\": true,\r\n\t\t\"removed\": false,\r\n\t\t\"removedAt\": null\r\n\t},\r\n    \"page\": 0,\r\n    \"count\": 0,\r\n    \"pageSize\": 0,\r\n    \"totalItens\": 0,\r\n    \"searchName\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -76,16 +101,51 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/api/customers/save",
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer\": {\r\n        \"databaseId\": {\r\n            \"timestamp\": 1638138326,\r\n            \"date\": \"2021-11-28T22:25:26.000+00:00\"\r\n        },\r\n        \"idCustomer\": \"1\",\r\n        \"firstName\": \"Murilo\",\r\n        \"lastName\": \"Costa\",\r\n        \"email\": \"teste@teste.com\",\r\n        \"birthDate\": \"1985-8-19\",\r\n        \"state\": \"BA\",\r\n        \"city\": \"Salvador\",\r\n        \"createAt\": \"2021-11-28 13:00\",\r\n        \"updateAt\": \"2021-11-28 13:00\",\r\n        \"removed\": false,\r\n        \"removedAt\": null,\r\n        \"age\": null\r\n    },\r\n    \"page\": 1,\r\n    \"count\": 1,\r\n    \"pageSize\": 5,\r\n    \"totalItens\": 0,\r\n    \"searchName\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/1",
+					"protocol": "http",
+					"host": [
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
 					],
 					"port": "8081",
 					"path": [
 						"api",
 						"customers",
-						"save"
+						"1"
 					]
 				}
 			},
@@ -112,21 +172,19 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/api/customers?id=1",
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/61b8b623a189fc5cf5a6388f",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
 					],
 					"port": "8081",
 					"path": [
 						"api",
-						"customers"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1"
-						}
+						"customers",
+						"61b8b623a189fc5cf5a6388f"
 					]
 				}
 			},
@@ -135,13 +193,16 @@
 		{
 			"name": "disableAll",
 			"request": {
-				"method": "GET",
+				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/api/customers/disableAll",
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/disableAll",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
 					],
 					"port": "8081",
 					"path": [
@@ -161,15 +222,82 @@
 			"response": []
 		},
 		{
-			"name": "activateAll",
+			"name": "disableById",
 			"request": {
-				"method": "GET",
+				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/api/customers/activateAll",
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/disable/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"customers",
+						"disable",
+						"1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activateAll",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/activate/1",
+					"protocol": "http",
+					"host": [
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"customers",
+						"activate",
+						"1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activateById",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/activateAll",
+					"protocol": "http",
+					"host": [
+						"ec2-54-205-233-46",
+						"compute-1",
+						"amazonaws",
+						"com"
 					],
 					"port": "8081",
 					"path": [
