@@ -24,6 +24,8 @@
 
 **9. Terraform**
 
+**10. Swagger**
+
 
 ### Redis - Used
 
@@ -63,6 +65,10 @@ The same case of Nginx load balancer. Depends on project goals
 ### Terraform - Used
 
 I decided to use it to practice more and because it makes provisioning faster
+
+### Swagger - Used
+
+I decided to use it to share an online documentation
 
 
 # Problems faced

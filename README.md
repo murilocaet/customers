@@ -55,19 +55,8 @@ The services are running at http://your-server-host:8081/api/customers/
 
 All endpoints were coded to send only the necessary data to Front-end, hence, the limit of rows will be the max items configured per page. In Search, the page items will be filtered in "real-time" and the other database items only after clicking on the search button.
 
-**POST getAll**
-.../api/customers/all
-
-**payload**
-
-	{
-		"customer": null,
-		"page": 1,
-		"count": 1,
-		"pageSize": 5,
-		"totalItens": 0,
-		"searchName": ""
-	}
+**GET findAll**
+.../api/customers?page=1&pageSize=5&searchName=
 
 **Response**
 
@@ -83,20 +72,21 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 				"firstName": "Teste 002",
 				"lastName": "Dois",
 				"email": "teste2@gmail.com",
-				"age": "22",
+				"birthDate": "1985-09-19",
 				"state": "BA",
 				"city": "Salvador",
 				"createAt": "2021-11-29 09:49",
 				"updateAt": "2021-11-29 09:49",
+            	"enable": true,
 				"removed": false,
 				"removedAt": null
 			},
 			...
 		],
 		"page": 1,
-		"count": 3,
+		"count": 1,
 		"pageSize": 5,
-		"totalItens": 11,
+		"totalItens": 2,
 		"searchName": "",
 		"note": "",
 		"success": "",
@@ -104,8 +94,8 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 	}
 
 
-**GET getById**
-.../api/customers?id=1
+**GET findById**
+.../api/customers/1
 
 **Response**
 
@@ -120,11 +110,12 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 				"firstName": "Murilo",
 				"lastName": "Costa",
 				"email": "murilo.caet@gmail.com",
-				"age": "36",
+				"birthDate": "1985-09-19",
 				"state": "BA",
 				"city": "Salvador",
-				"createAt": "2021-11-28 13:00",
-				"updateAt": null,
+				"createAt": "2021-11-29 09:49",
+				"updateAt": "2021-11-29 09:49",
+            	"enable": true,
 				"removed": false,
 				"removedAt": null
 			}
@@ -139,8 +130,8 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 		"error": []
 	}
 
-**POST save**
-.../api/customers/save
+**POST addCustomer**
+.../api/customers
 
 **payload**
 
@@ -149,11 +140,12 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 			"firstName": "Teste 008",
 			"lastName": "Oito",
 			"email": "teste8@gmail.com",
-			"age": "22",
+			"birthDate": "1985-09-19",
 			"state": "BA",
 			"city": "Salvador",
-			"createAt": "2021-11-28 18:00",
-			"updateAt": null,
+			"createAt": "2021-11-29 09:49",
+			"updateAt": "2021-11-29 09:49",
+			"enable": true,
 			"removed": false,
 			"removedAt": null
 		}
@@ -172,11 +164,12 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 				"firstName": "Teste 008",
 				"lastName": "Oito",
 				"email": "teste8@gmail.com",
-				"age": "22",
+				"birthDate": "1985-09-19",
 				"state": "BA",
 				"city": "Salvador",
-				"createAt": "2021-11-29 09:50",
-				"updateAt": "2021-11-29 09:50",
+				"createAt": "2021-11-29 09:49",
+				"updateAt": "2021-11-29 09:49",
+            	"enable": true,
 				"removed": false,
 				"removedAt": null
 			}
@@ -189,8 +182,67 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 		"error": []
 	}
 
-**GET delete**
-.../api/customers?id=1
+**PUT updateCustomer**
+.../api/customers/1
+
+**payload**
+
+	{
+		"customer": {
+			"databaseId": {
+				"timestamp": 1638138326,
+				"date": "2021-11-28T22:25:26.000+00:00"
+			},
+			"idCustomer": "1",
+			"firstName": "Murilo",
+			"lastName": "Costa",
+			"email": "murilo.caet@gmail.com",
+			"birthDate": "1985-09-19",
+			"state": "BA",
+			"city": "Salvador",
+			"createAt": "2021-11-29 09:49",
+			"updateAt": "2021-11-29 09:49",
+			"enable": true,
+			"removed": false,
+			"removedAt": null
+		}
+	}
+	
+**Response**
+
+	{
+		"customers": [
+			{
+				"databaseId": {
+					"timestamp": 1638138326,
+					"date": "2021-11-28T22:25:26.000+00:00"
+				},
+				"idCustomer": "1",
+				"firstName": "Murilo",
+				"lastName": "Costa",
+				"email": "murilo.caet@gmail.com",
+				"birthDate": "1985-09-19",
+				"state": "BA",
+				"city": "Salvador",
+				"createAt": "2021-11-29 09:49",
+				"updateAt": "2021-11-29 09:49",
+            	"enable": true,
+				"removed": false,
+				"removedAt": null
+			}
+		],
+		"page": 1,
+		"count": 1,
+		"pageSize": 5,
+		"totalItens": 0,
+		"searchName": "",
+		"note": "",
+		"success": "",
+		"error": []
+	}
+
+**DELETE deleteCustomer**
+.../api/customers/1
 
 **Response**
 
@@ -205,13 +257,14 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 				"firstName": "Murilo",
 				"lastName": "Costa",
 				"email": "murilo.caet@gmail.com",
-				"age": "36",
+				"birthDate": "1985-09-19",
 				"state": "BA",
 				"city": "Salvador",
-				"createAt": "2021-11-28 13:00",
-				"updateAt": null,
+				"createAt": "2021-11-29 09:49",
+				"updateAt": "2021-11-29 09:49",
+            	"enable": true,
 				"removed": true,
-				"removedAt": "2021-11-29 02:23"
+				"removedAt": "2021-11-30 09:49"
 			}
 		],
 		"totalPages": 1,
@@ -220,39 +273,7 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 		"error": []
 	}
 
-**PUT disableAll**
-.../api/customers/disableAll
-
-**Response**
-
-	{
-		"customers": [
-			{
-				"databaseId": {
-					"timestamp": 1638162066,
-					"date": "2021-11-29T05:01:06.000+00:00"
-				},
-				"idCustomer": "61a45e92c0219a3dc1921598",
-				"firstName": "Spring",
-				"lastName": "Boot",
-				"email": "spring@teste.com",
-				"age": "32",
-				"state": "BA",
-				"city": "Salvador",
-				"createAt": "2021-11-29 03:01",
-				"updateAt": "2021-11-29 03:01",
-				"removed": true,
-				"removedAt": "2021-11-29 04:02"
-			},
-			...
-		],
-		"totalPages": 1,
-		"note": "",
-		"success": "",
-		"error": []
-	}
-
-**PUT activateAll**
+**PATCH activateAllCustomers**
 .../api/customers/activateAll
 
 **Response**
@@ -268,11 +289,111 @@ All endpoints were coded to send only the necessary data to Front-end, hence, th
 				"firstName": "Spring",
 				"lastName": "Boot",
 				"email": "spring@teste.com",
-				"age": "32",
+				"birthDate": "1985-09-19",
 				"state": "BA",
 				"city": "Salvador",
 				"createAt": "2021-11-29 03:01",
 				"updateAt": "2021-11-29 03:01",
+            	"enable": true,
+				"removed": false,
+				"removedAt": null
+			},
+			...
+		],
+		"totalPages": 1,
+		"note": "",
+		"success": "",
+		"error": []
+	}
+
+**PATCH activateCustomerById**
+.../api/customers/activate/1
+
+**Response**
+
+	{
+		"customers": [
+			{
+				"databaseId": {
+					"timestamp": 1638162066,
+					"date": "2021-11-29T05:01:06.000+00:00"
+				},
+				"idCustomer": "61a45e92c0219a3dc1921598",
+				"firstName": "Spring",
+				"lastName": "Boot",
+				"email": "spring@teste.com",
+				"birthDate": "1985-09-19",
+				"state": "BA",
+				"city": "Salvador",
+				"createAt": "2021-11-29 03:01",
+				"updateAt": "2021-11-29 03:01",
+            	"enable": true,
+				"removed": false,
+				"removedAt": null
+			},
+			...
+		],
+		"totalPages": 1,
+		"note": "",
+		"success": "",
+		"error": []
+	}
+
+**PATCH disableAllCustomers**
+.../api/customers/disableAll
+
+**Response**
+
+	{
+		"customers": [
+			{
+				"databaseId": {
+					"timestamp": 1638162066,
+					"date": "2021-11-29T05:01:06.000+00:00"
+				},
+				"idCustomer": "61a45e92c0219a3dc1921598",
+				"firstName": "Spring",
+				"lastName": "Boot",
+				"email": "spring@teste.com",
+				"birthDate": "1985-09-19",
+				"state": "BA",
+				"city": "Salvador",
+				"createAt": "2021-11-29 03:01",
+				"updateAt": "2021-11-29 03:01",
+            	"enable": false,
+				"removed": false,
+				"removedAt": null
+			},
+			...
+		],
+		"totalPages": 1,
+		"note": "",
+		"success": "",
+		"error": []
+	}
+
+**PATCH disableCustomerById**
+.../api/customers/disable/1
+
+**Response**
+
+	{
+		"customers": [
+			{
+				"databaseId": {
+					"timestamp": 1638162066,
+					"date": "2021-11-29T05:01:06.000+00:00"
+				},
+				"idCustomer": "61a45e92c0219a3dc1921598",
+				"firstName": "Spring",
+				"lastName": "Boot",
+				"email": "spring@teste.com",
+				"birthDate": "1985-09-19",
+				"state": "BA",
+				"city": "Salvador",
+				"createAt": "2021-11-29 03:01",
+				"updateAt": "2021-11-29 03:01",
+            	"enable": false,
 				"removed": false,
 				"removedAt": null
 			},
@@ -321,6 +442,15 @@ Then, with a single command, you create and start all the services from your con
 Docker Hub is a service provided by Docker for finding and sharing container images with your team.
 
 **Docker Hub**, you can read more [at here](https://docs.docker.com/docker-hub/).
+
+
+### Swagger
+
+Swagger can help you design and document your APIs at scale.
+
+**Swagger API Tools**, you can read more [at here](https://swagger.io/tools/).
+
+**Swagger Documentation From Your API Design**, you can read more [at here](https://swagger.io/solutions/api-documentation/).
 
 
 ## Learn More

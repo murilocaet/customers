@@ -24,6 +24,8 @@
 
 **9. Terraform**
 
+**10. Swagger**
+
 
 
 ### Redis - Usado
@@ -64,6 +66,10 @@ O mesmo caso do balanceador de carga Nginx. Depende dos objetivos do projeto
 ### Terraform - Usado
 
 Decidi usá-lo para praticar mais e porque torna o provisionamento mais rápido
+
+### Swagger - Used
+
+Decidi usá-lo para compartilhar uma documentação online
 
 
 # Problemas enfrentados
