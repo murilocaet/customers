@@ -143,7 +143,7 @@ public class CustomerController {
     }
    	
    	@PatchMapping(value = "/activate/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-   	public ResponseEntity<CustomerResponse> activateCustomer(@PathVariable String id){
+   	public ResponseEntity<CustomerResponse> activateCustomerById(@PathVariable String id){
    		CustomerResponse response;
    		try{
     	   response = service.activate(id);
@@ -184,7 +184,7 @@ public class CustomerController {
 	}
    	
    	@PatchMapping(value = "/disable/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-   	public ResponseEntity<CustomerResponse> disableCustomer(@PathVariable String id){
+   	public ResponseEntity<CustomerResponse> disableCustomerById(@PathVariable String id){
    		CustomerResponse response;
    		try{
     	   response = service.disable(id);
