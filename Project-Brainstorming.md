@@ -69,13 +69,3 @@ I decided to use it to practice more and because it makes provisioning faster
 ### Swagger - Used
 
 I decided to use it to share an online documentation
-
-
-# Problems faced
-
-Using the AWS Ubuntu IP address to access the project, for some reason, the ReactJS site doesn't find the Backend server to connect. 
-
-It was possible to get access and receive a JSON response from the terminal inside of the VM, with the 'curl' command. But from the site, maybe it could be trying to use localhost access to the server, I don't know, and creating this issue, I need to read more to find a workaround for it. 
-
-Executing all containers in my dev environment this issue doesn't occur.
-

@@ -59,7 +59,7 @@ services:
       - 'redis'
         
   customers:
-    image: mccosta/customers:1.0
+    image: mccosta/customers
     container_name: customers
     ports:
       - 80:80

@@ -24,9 +24,9 @@ This project is about the creation of a rest API for Customer Management. It was
 
 ![React Front-end](https://github.com/murilocaet/customers/blob/master/img-project.png?raw=true)
 
-[Project runing on AWS](http://ec2-54-152-102-37.compute-1.amazonaws.com).
+[Project runing on AWS](http://ec2-44-201-241-253.compute-1.amazonaws.com).
 
-[API documentation](http://ec2-54-152-102-37.compute-1.amazonaws.com:8100/swagger).
+[API documentation](http://ec2-44-201-241-253.compute-1.amazonaws.com:8100/swagger).
 
 ## Available Scripts
 
@@ -44,12 +44,21 @@ Just execute the Docker-compose in the file path `docker-compose.yml path> docke
 You can start the frontend manually as well. Enter into the **frontend-react** by the terminal and execute `npm start` to run the app.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+#### Host settings
+
+You can change settings the **API Host and Port** on the `environment.jsx`
+
+`const HOST = "http://192.168.1.7:";`
+
+`const PORT_API = "8081";`
 
 ### backend-java
 
 Open the Maven Project in an IDE of your preference and run it.
 
 The services are running at http://your-server-host:8081/api/customers/
+
+*Running locally will need to change the MongoDB/Redis settings in `RedisConfig.java` and `application.yml`.
 
 #### Endpoints
 

@@ -59,7 +59,7 @@ Dependendo dos objetivos do projeto, seria interessante usar
 
 Usado para compartilhar uma versão em execução do projeto
 
-### Load Balance - Não Usado
+### Balanceamento de carga - Não Usado
 
 O mesmo caso do balanceador de carga Nginx. Depende dos objetivos do projeto
 
@@ -67,15 +67,6 @@ O mesmo caso do balanceador de carga Nginx. Depende dos objetivos do projeto
 
 Decidi usá-lo para praticar mais e porque torna o provisionamento mais rápido
 
-### Swagger - Used
+### Swagger - Usado
 
 Decidi usá-lo para compartilhar uma documentação online
-
-
-# Problemas enfrentados
-
-Usando o endereço IP do AWS Ubuntu para acessar o projeto, por algum motivo, o site ReactJS não encontra o servidor Backend para se conectar.
-
-Foi possível obter acesso e receber uma resposta JSON do terminal dentro da VM, com o comando 'curl'. Mas do site, talvez esteja tentando usar o acesso localhost no servidor(não sei ao certo), criando esse problema. Preciso ler mais para encontrar uma solução alternativa para isso.
-
-Ao executar todos os contêineres em meu ambiente de desenvolvimento, esse problema não ocorre.

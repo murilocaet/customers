@@ -18,7 +18,7 @@ resource "aws_instance" "customers-vm" {
   ami = "${var.amis["us-east-1"]}"
   instance_type = "${var.instance_type["instance_type_customers"]}"
   key_name = "${var.key_name}"
-  user_data = file("file.sh")
+  user_data = file("file-customers.sh")
   tags = {
     Name = "customers-vm"
   }

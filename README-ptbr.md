@@ -25,9 +25,9 @@ Este projeto trata da criação de uma API rest para Gerenciamento de Clientes. 
 
 ![ReactJS Front-end](https://github.com/murilocaet/customers/blob/master/img-project.png?raw=true)
 
-[Projeto em execução na AWS](http://ec2-54-152-102-37.compute-1.amazonaws.com).
+[Projeto em execução na AWS](http://ec2-44-201-241-253.compute-1.amazonaws.com).
 
-[Documentação da API](http://ec2-54-152-102-37.compute-1.amazonaws.com:8100/swagger).
+[Documentação da API](http://ec2-44-201-241-253.compute-1.amazonaws.com:8100/swagger).
 
 ## Scripts Disponíveis
 
@@ -44,12 +44,21 @@ Basta executar o Docker-compose no caminho do arquivo `docker-compose.yml path> 
 Você também pode iniciar o frontend manualmente. Entre no **frontend-react** pelo terminal e execute `npm start` para executar o aplicativo.
 Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
 
+#### Host settings
+
+Você pode alterar as configurações de **API Host and Port** no `environment.jsx`
+
+`const HOST = "http://192.168.1.7:";`
+
+`const PORT_API = "8081";`
 
 ### backend-java
 
 Abra o Projeto Maven em um IDE de sua preferência e execute-o.
 
 Os serviços estão sendo executados em http://your-server-host:8081/api/customers/
+
+*Executando local vai preciar alterar as configurações do MongoDB/Redis no `RedisConfig.java` e no `application.yml`.
 
 #### Endpoints
 

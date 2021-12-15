@@ -7,26 +7,14 @@
 	"item": [
 		{
 			"name": "findAll",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"customer\": null,\r\n    \"page\": 1,\r\n    \"count\": 1,\r\n    \"pageSize\": 5,\r\n    \"totalItens\": 0,\r\n    \"searchName\": \"\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers?page=1&count=1&pageSize=5&totalItens=0&searchName=",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers?page=1&pageSize=5&searchName=",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -42,16 +30,8 @@
 							"value": "1"
 						},
 						{
-							"key": "count",
-							"value": "1"
-						},
-						{
 							"key": "pageSize",
 							"value": "5"
-						},
-						{
-							"key": "totalItens",
-							"value": "0"
 						},
 						{
 							"key": "searchName",
@@ -68,10 +48,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/1",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers/1",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -87,7 +67,7 @@
 			"response": []
 		},
 		{
-			"name": "save",
+			"name": "addCustomer",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -101,10 +81,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -119,7 +99,7 @@
 			"response": []
 		},
 		{
-			"name": "edit",
+			"name": "updateCustomer",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -133,10 +113,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/1",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers/1",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -172,10 +152,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/61b8b623a189fc5cf5a6388f",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers/61b8b623a189fc5cf5a6388f",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -196,10 +176,10 @@
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/disableAll",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers/disableAll",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -227,10 +207,10 @@
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/disable/1",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers/disable/1",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -254,15 +234,15 @@
 			"response": []
 		},
 		{
-			"name": "activateAll",
+			"name": "activateById",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/activate/1",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers/activate/1",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
@@ -286,15 +266,15 @@
 			"response": []
 		},
 		{
-			"name": "activateById",
+			"name": "activateAll",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "http://ec2-54-205-233-46.compute-1.amazonaws.com:8081/api/customers/activateAll",
+					"raw": "http://ec2-44-201-241-253.compute-1.amazonaws.com:8081/api/customers/activateAll",
 					"protocol": "http",
 					"host": [
-						"ec2-54-205-233-46",
+						"ec2-44-201-241-253",
 						"compute-1",
 						"amazonaws",
 						"com"
